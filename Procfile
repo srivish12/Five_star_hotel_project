@@ -1,0 +1,1 @@
+web: gunicorn five_star_hotel.wsgi
