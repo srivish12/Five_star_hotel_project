@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head><title>Five Star Hotels</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: hwb(0 64% 34%);
+  
+  }
+  h1, h2 {
+    color: #333;
+  }
+  
+  #heading {
+    text-align: center;
+    color:#d95c1b;
+    font-family:imogi;
+    background-color: rgb(215, 235, 115);
+
+  }
+  #logArea {
+    text-align: left;
+    margin-bottom: 0;
+    background-color: antiquewhite;
+  }
+  hr {
+    border: 0;
+    height: 1px;
+    background: #333;
+    margin-top: 0;
+    margin-bottom: 20px;
+    
+  }
+
+  a {
+    text-decoration: none;
+    color:#3f3fdb;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  form {
+    margin-top: 20px;
+  }
+  button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #218838;
+  }
+</style>
+
+
+</head>
+<body>
+ 
+  <h1 id="heading">Five Star Hotels</h1>
+  
+  
+  <div id="logArea">
+  <h1>Hotel Booking System</h1>
+  {% if user.is_authenticated %}
+    Hello, {{ user.username }} | <a href="{% url 'logout' %}">Logout</a>
+  {% else %}
+    <a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Register</a>
+  {% endif %}
+  </div>
+
+  <hr>
+  {% block content %}{% endblock %}
+</body>
+</html>

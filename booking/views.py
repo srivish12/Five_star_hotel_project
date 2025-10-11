@@ -1,6 +1,12 @@
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login
 from .models import Hotel, Room
+from .forms import RegisterForm, BookingForm
+from django.contrib.auth.decorators import login_required
+from django.utils import timezone
+from .models import Booking
+from .models import Room
 
 # Create your views here.
 
