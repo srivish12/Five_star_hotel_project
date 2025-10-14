@@ -18,4 +18,16 @@ class BookingForm(forms.ModelForm):
             'check_out': forms.DateInput(attrs={'type': 'date'}),
         }
 
-    
+
+
+def accurate_booking(self):
+        accurate_data = super().accurate()
+        check_in = accurate_data.get('check_in')
+        check_out = accurate_data.get('check_out')
+
+        if check_in and check_out:
+            if check_in < timezone.now().date():
+                self.add_error('check_in', 'Check-in date cannot be in the past.')
+            if check_out <= check_in:
+                self.add_error('check_out', 'Check-out date must be after check-in date.')
+        return accurate_data

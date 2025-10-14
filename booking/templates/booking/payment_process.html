@@ -1,0 +1,13 @@
+{% extends 'booking/base.html' %}
+{% block content %}
+<h2> payment_type </h2>
+<p> Amount to be paid: £{{ amount }}</p>
+<p> Payment Method: {{ payment_type }}</p>
+
+<p> payment_type can be either 'Credit Card' or 'PayPal'.</p>
+
+<form method="post">
+  {% csrf_token %}
+    <button type="submit">Pay Now</button>
+</form>
+{% endblock %}

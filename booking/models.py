@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.utils import timezone
+
 # Create your models here.
 class Hotel(models.Model):
     name = models.CharField(max_length=100)
@@ -10,6 +11,7 @@ class Hotel(models.Model):
 
     def __str__(self):
         return self.name
+    
     
 class Room(models.Model):
     ROOM_TYPES = [
@@ -26,7 +28,8 @@ class Room(models.Model):
 
     def __str__(self):
         return f"{self.hotel.name} - Room{self.room_number} ({self.room_type}) "
-    
+
+
 class Booking(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
@@ -42,6 +45,7 @@ class Booking(models.Model):
     def total_price(self):
             days = (self.check_out - self.check_in).days
             return days * self.room.price_per_night
+    
     
     def cancelle(self):
             self.is_cancelled = True
