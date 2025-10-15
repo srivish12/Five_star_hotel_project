@@ -45,6 +45,27 @@ def cancel_booking(request, booking_id):
 
 
 @login_required
+def amend_booking(request, booking_id):
+    booking = get_object_or_404(Booking, id=booking_id, user=request.user, is_active=True)
+
+    if request.method == "POST":
+        new_check_in = request.POST.get("check_in")
+        new_check_out = request.POST.get("check_out")
+
+        # Prevent overlaps with other bookings
+        if Booking.objects.filter(room=booking.room, is_active=True, check_in__lt=new_check_out, check_out__gt=new_check_in).exclude(id=booking.id).exists():
+            messages.error(request, "Room is not available for these new dates.")
+        else:
+            booking.check_in = new_check_in
+            booking.check_out = new_check_out
+            booking.save()
+            messages.success(request, "Booking updated successfully.")
+            return redirect("my_bookings")
+
+    return render(request, "reservations/amend_booking.html", {"booking": booking})
+
+
+@login_required
 def my_bookings(request):
     bookings = Booking.objects.filter(user=request.user)
     return render(request, "reservations/my_bookings.html", {"bookings": bookings})
