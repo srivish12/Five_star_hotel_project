@@ -10,6 +10,11 @@ from .models import Room
 
 # Create your views here.
 
+template_name = 'booking/register.html', 'booking/hotel_list.html', 
+'booking/room_list.html', 
+'payments/payment_process.html', 'Booking/booking_form.html', 'registration/login.html' 
+paginate_by = 10
+
 def register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
@@ -45,12 +50,13 @@ def book_room(request, room_id):
             booking.save()
             room.is_available = False
             room.save()
-            return redirect('payment_process', booking_id=booking.id)
+            return redirect('hotel_list')
     else:
         form = BookingForm()
-    return render(request, 'booking/book_room.html', {'room': room, 'form': form})
+    return render(request, 'booking/booking_form.html', {'room': room, 'form': form})
 
 
 def payment_process(request, booking_id):
     return render(request, 'payments/payment_process.html', {'booking_id': booking_id})
+
 
