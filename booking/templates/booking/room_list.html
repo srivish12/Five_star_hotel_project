@@ -4,10 +4,16 @@
 <ul>
   {% for room in rooms.all %}
    
-    <li>Room {{ room.room_number }} ({{ room.room_type }}) - £{{ room.price_per_night }} -{% if room.is_available %}Available{% else %}Booked{% endif %} 
-    {% if room.is_available %}    
+    <li>Room {{ room.room_number }} ({{ room.room_type }}) -
+        £{{ room.price_per_night }}  
+
+    {% if room.is_available %}  
+      - Available -  
       <a href="{% url 'book_room' room.id %}">Book</a></li>
-        
+    
+    {% else %}
+    
+     - Booked</li>
     {% endif %}
   {% empty %}
   {% endfor %}

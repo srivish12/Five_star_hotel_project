@@ -60,8 +60,8 @@ def payment_cancel(request, booking_id):
     return render(request, 'payments/payment_cancel.html', {'booking': booking})
 
 
-@login_required
-def payment_history(request):
-    payments = Payment.objects.filter(user=request.user).order_by('-payment_date')
-    return render(request, 'payments/payment_history.html', {'payments': payments})
+#@login_required
+#def payment_history(request):
+ #   payments = Payment.objects.filter(user=request.user).order_by('-payment_date')
+  #  return render(request, 'payments/payment_history.html', {'payments': payments})
 
