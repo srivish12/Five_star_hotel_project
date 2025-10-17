@@ -2,9 +2,15 @@
 {% block content %}
 <h2>Rooms in {{ hotel.name }}</h2>
 <ul>
-  {% for room in rooms %}
-    <li>Room {{ room.room_number }} ({{ room.room_type }}) - ${{ room.price }} -
-        <a href="{% url 'book_room' room.id %}">Book</a></li>
+  {% for room in rooms.all %}
+   
+    <li>Room {{ room.room_number }} ({{ room.room_type }}) - £{{ room.price_per_night }} -{% if room.is_available %}Available{% else %}Booked{% endif %} 
+    {% if room.is_available %}    
+      <a href="{% url 'book_room' room.id %}">Book</a></li>
+        
+    {% endif %}
+  {% empty %}
   {% endfor %}
 </ul>
 {% endblock %}
+

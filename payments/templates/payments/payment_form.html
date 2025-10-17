@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Complete Payment for Booking #{{ booking.id }}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        {{ form.method.label_tag }} {{ form.method }}
+    </div>
+    <div class="mb-3">
+        {{ form.amount.label_tag }} {{ form.amount }}
+    </div>
+    <div class="mb-3">
+        {{ form.notes.label_tag }} {{ form.notes }}
+    </div>
+    <button type="submit" class="btn btn-success">Pay Now</button>
+</form>
+{% endblock %}

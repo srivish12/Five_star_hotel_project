@@ -25,6 +25,7 @@ class Room(models.Model):
     room_type = models.CharField(max_length=10, choices=ROOM_TYPES)
     price_per_night = models.DecimalField(max_digits=6, decimal_places=2)
     is_available = models.BooleanField(default=True)
+    
 
     def __str__(self):
         return f"{self.hotel.name} - Room{self.room_number} ({self.room_type}) "
@@ -37,26 +38,24 @@ class Booking(models.Model):
     check_out = models.DateField()
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
-    is_cancelled = models.BooleanField(default=False)  #True if canelled
+    #is_cancelled = models.BooleanField(default=False)  #True if canelled
+    is_active = models.BooleanField(default=True)  #True if booking is active
     amount = models.DecimalField(max_digits=8, decimal_places=2)
     payment_status = models.CharField(max_length=20, default='Pending')  #Pending, Completed, Failed
     payment_id = models.CharField(max_length=100, blank=True, null=True)  #ID from payment gateway
+
+
+    def __str__(self):
+            return f"Booking by {self.user.username} for {self.room} from {self.check_in} to {self.check_out} ({'Active' if self.is_active else 'Cancelled'})"
+
 
     def total_price(self):
             days = (self.check_out - self.check_in).days
             return days * self.room.price_per_night
     
     
-    def cancelle(self):
-            self.is_cancelled = True
-            self.room.is_available = True
-            self.room.save()
-            self.save()
-
-
-    def __str__(self):
-            return f"Booking by {self.user.username} for {self.room} from {self.check_in} to {self.check_out}"
-
+    
+ 
 
 class payment_process(models.Model):
     booking = models.OneToOneField(Booking, on_delete=models.CASCADE)
