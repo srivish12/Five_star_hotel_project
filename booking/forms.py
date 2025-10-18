@@ -28,7 +28,7 @@ class BookingForm(forms.ModelForm):
         if check_in and check_in < timezone.now().date():
             self.add_error('check_in', 'Check-in date cannot be in the past.')
 
-        if check_out and check_out <= check_in:
+        if check_out and check_in and check_out <= check_in:
             self.add_error('check_out', 'Check-out date must be after check-in date.')
 
         return cleaned_data

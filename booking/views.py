@@ -58,15 +58,17 @@ def book_room(request, room_id):
 @login_required
 def cancel_booking(request, booking_id):
     booking = get_object_or_404(Booking, pk=booking_id, user=request.user)
+    
     if booking.is_active:
         booking.is_active = False
         booking.save()
+
         booking.room.is_available = True
         booking.room.save()
         messages.success(request, "Your booking has been cancelled.")
     else:
         messages.error(request, "This booking is already cancelled.")
-    return redirect('my_bookings')
+    return redirect('room_list', hotel_id=booking.room.hotel.id)
 
 
 @user_passes_test(lambda u: u.is_staff)

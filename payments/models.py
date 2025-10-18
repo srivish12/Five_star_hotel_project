@@ -4,6 +4,7 @@ from booking.models import Booking
 from django.utils import timezone
 
 
+
 class Payment(models.Model):
     PAYMENT_METHODS = [
         ('card', 'Credit/Debit Card'),

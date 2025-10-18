@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Amend Booking</h2>
+<form method="POST">
+  {% csrf_token %}
+  <label>New Check-in:</label>
+  <input type="date" name="check_in" value="{{ booking.check_in }}"><br>
+  <label>New Check-out:</label>
+  <input type="date" name="check_out" value="{{ booking.check_out }}"><br><br>
+  <button type="submit">Update</button>
+</form>
+{% endblock %}

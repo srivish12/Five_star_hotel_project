@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Cancel Booking</h2>
+<p>Are you sure you want to cancel your booking for {{ booking.room }}?</p>
+<form method="POST">
+  {% csrf_token %}
+  <button type="submit">Yes, Cancel</button>
+</form>
+{% endblock %}

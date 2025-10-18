@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
+from decimal import Decimal
 
 
 class Hotel(models.Model):
@@ -34,7 +35,7 @@ class Booking(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     check_in = models.DateField()
     check_out = models.DateField()
-    created_at = models.DateTimeField(default=timezone.now)
+    created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
     amount = models.DecimalField(max_digits=8, decimal_places=2, default=0.00)
@@ -44,7 +45,7 @@ class Booking(models.Model):
     def __str__(self):
         status = "Active" if self.is_active else "Cancelled"
         return f"Booking by {self.user.username} for {self.room} ({status})"
-
+    
     def total_price(self):
         days = (self.check_out - self.check_in).days
-        return days * self.room.price_per_night
+        return Decimal(days) * self.room.price_per_night
