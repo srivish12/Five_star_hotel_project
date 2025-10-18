@@ -2,11 +2,10 @@
 
 {% block content %}
   <h2>Available Hotels</h2>
-
   
     <ul>
       {% for hotel in hotels %}
-        <li><a href="{% url 'booking:room_list' hotel.id %}">{{ hotel.name }}– {{ hotel.location }}</a></li>
+        <li><a href="{% url 'booking:room_list' hotel.id %}">{{ hotel.name }}-{{ hotel.location }}</a></li>
       {% empty %}
         <li>No hotels available.-log into admin to add one.</li>
       

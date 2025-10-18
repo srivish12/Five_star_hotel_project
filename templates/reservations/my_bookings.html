@@ -7,7 +7,7 @@
       {{ booking.room }} — {{ booking.check_in }} to {{ booking.check_out }}
       ({{ booking.payment_status }})
       {% if booking.is_active %}
-        <a href="{% url 'cancel_booking' booking.id %}">Cancel</a>
+        <a href="{% url 'booking:cancel_booking' booking.id %}">Cancel</a>
       {% else %}
         <em>Cancelled</em>
       {% endif %}
