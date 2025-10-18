@@ -17,7 +17,7 @@
   {% if user.is_authenticated %}
     Hello, {{ user.username }} |<a href="{% url 'my_bookings' %}">My Bookings</a> | <a href="{% url 'logout' %}">Logout</a>
   {% else %}
-    <a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Register</a>
+    <a href="{% url 'login' %}">Login</a> | <a href="{% url 'booking:register' %}">Register</a>
   {% endif %}
   </div>
 
