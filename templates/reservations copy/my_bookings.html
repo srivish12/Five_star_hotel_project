@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>My Bookings</h2>
+<ul>
+  {% for booking in bookings %}
+    <li>
+      {{ booking.room }} — {{ booking.check_in }} to {{ booking.check_out }}
+      ({{ booking.payment_status }})
+      {% if booking.is_active %}
+        <a href="{% url 'amend_booking' booking.id %}">Amend</a> |
+        <a href="{% url 'cancel_booking' booking.id %}">Cancel</a>
+      {% else %}
+        <em>Cancelled</em>
+      {% endif %}
+    </li>
+  {% empty %}
+    <li>You have no bookings.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
