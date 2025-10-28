@@ -3,7 +3,8 @@
 <html>
 <head><title>Five Star Hotels</title>
 <style></style>
-<link rel="stylesheet"  href="{% static 'css/style.css' %}">
+
+<link rel="stylesheet" href="{% static 'css/style.css' %}?v={{ STATIC_VERSION }}">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
@@ -13,11 +14,13 @@
   
   
   <div id="logArea">
-  <h1>Hotel Booking System</h1>
+
+  <h1 id="subHeading">Hotel Booking System</h1>
   {% if user.is_authenticated %}
-    Hello, {{ user.username }} |<a href="{% url 'my_bookings' %}">My Bookings</a> | <a href="{% url 'logout' %}">Logout</a>
+    Hello, {{ user.username }} | <a href="{% url 'my_bookings' %}">My Bookings</a> |
+     <a href="{% url 'logout' %}">Logout</a> | <a href="{% url 'admin:index' %}">Admin</a> | <a href="{% url 'hotel_list' %}">Hotels</a>
   {% else %}
-    <a href="{% url 'login' %}">Login</a> | <a href="{% url 'booking:register' %}">Register</a>
+    <a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Register</a>
   {% endif %}
   </div>
 
@@ -25,10 +28,12 @@
 
   <main>
     {% for message in messages %}
-      <p style="color: green;">{{ message }}</p>
+      <p id="message">{{ message }}</p>
     {% endfor %}
     
-    {% block content %}{% endblock %}
+    {% block content %}
+    
+    {% endblock %}
   </main>
 
   <footer>

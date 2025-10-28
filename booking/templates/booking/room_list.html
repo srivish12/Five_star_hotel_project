@@ -1,19 +1,28 @@
 {% extends 'base.html' %}
+
 {% block content %}
+
 <h2>Rooms in {{ hotel.name }}</h2>
 <ul>
   {% for room in rooms %}
     <li>
       Room {{ room.room_number }} ({{ room.room_type }}) - £{{ room.price_per_night }}
+      
       {% if room.is_available %}
         - Available - <a href="{% url 'booking:book_room' room.id %}">Book</a>
-      {% else %}
-        - Booked
+      
+        {% elif room.is_canceled %}
+        - Available (Canceled Booking) - <a href="{% url 'booking:admin_cancel_booking' booking.id %}">Book</a>
+      
+        {% else %}
+        - Booked 
+                    
       {% endif %}
     </li>
   {% empty %}
     <li>No rooms available.</li>
   {% endfor %}
 </ul>
+
 {% endblock %}
 
