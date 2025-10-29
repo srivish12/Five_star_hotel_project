@@ -39,8 +39,9 @@ class Booking(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
     amount = models.DecimalField(max_digits=8, decimal_places=2, default=0.00)
-    payment_status = models.CharField(max_length=20, default='Pending')  # Pending, Completed, Failed
+    payment_status = models.CharField(max_length=20, default='Pending')
     payment_id = models.CharField(max_length=100, blank=True, null=True)
+    notes = models.TextField(blank=True, null=True)
 
     def __str__(self):
         status = "Active" if self.is_active else "Cancelled"

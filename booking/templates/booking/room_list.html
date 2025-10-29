@@ -9,13 +9,12 @@
       Room {{ room.room_number }} ({{ room.room_type }}) - £{{ room.price_per_night }}
       
       {% if room.is_available %}
-        - Available - <a href="{% url 'booking:book_room' room.id %}">Book</a>
+        - Available - <a href="{% url 'admin_book_room' room.id %}">Book</a>
       
         {% elif room.is_canceled %}
-        - Available (Canceled Booking) - <a href="{% url 'booking:admin_cancel_booking' booking.id %}">Book</a>
-      
-        {% else %}
-        - Booked 
+        - Available (Canceled Booking) - <a href="{% url 'admin_cancel_booking' booking.id %}">Book</a>
+      {% else %}
+        - Available - <a href="{% url 'admin_book_room' room.id %}">Book</a>
                     
       {% endif %}
     </li>
