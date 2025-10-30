@@ -95,19 +95,19 @@ WSGI_APPLICATION = 'five_star_hotel.wsgi.application'
 #   }
 #}
 
-if os.environ.get("DEVELOPMENT") == "True":
+#if os.environ.get("DEVELOPMENT") == "True":
     # Use SQLite for development
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-else:
+ #   DATABASES = {
+  #      'default': {
+   #         'ENGINE': 'django.db.backends.sqlite3',
+    #        'NAME': BASE_DIR / 'db.sqlite3',
+    #    }
+    #}
+#else:
     # Use PostgreSQL for production
-    DATABASES = {
-        "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
-    }
+DATABASES = {
+    "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
+}
 
 CSRF_TRUSTED_ORIGINS = [
     "https://*.codeinstitute-ide.net/",
