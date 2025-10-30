@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 class Room(models.Model):
     number = models.CharField(max_length=10, unique=True)
-    room_type = models.CharField(max_length=50)  # e.g., Single, Double, Suite
+    room_type = models.CharField(max_length=50) 
     price_per_night = models.DecimalField(max_digits=8, decimal_places=2)
     is_available = models.BooleanField(default=True)
 
@@ -17,7 +17,8 @@ class Booking(models.Model):
     check_in = models.DateField()
     check_out = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)
-    is_active = models.BooleanField(default=True)  # false if cancelled
+    is_active = models.BooleanField(default=True)  
+    status = models.CharField(max_length=20, default='Pending')  
 
     def __str__(self):
         return f"{self.user.username} - Room {self.room.number} ({self.check_in} to {self.check_out})"
