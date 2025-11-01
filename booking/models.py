@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 from django.utils import timezone
 from decimal import Decimal
+#from cloudinary.models import CloudinaryField
+
 
 
 class Hotel(models.Model):
