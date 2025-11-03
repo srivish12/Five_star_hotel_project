@@ -2,8 +2,6 @@ from django.db import models
 from django.conf import settings
 from django.utils import timezone
 from decimal import Decimal
-#from cloudinary.models import CloudinaryField
-
 
 
 class Hotel(models.Model):
@@ -22,18 +20,24 @@ class Room(models.Model):
         ('suite', 'Suite'),
         ('family', 'Family'),
     ]
-    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, related_name='rooms')
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE,
+                              related_name='rooms')
     room_number = models.CharField(max_length=10)
     room_type = models.CharField(max_length=10, choices=ROOM_TYPES)
     price_per_night = models.DecimalField(max_digits=6, decimal_places=2)
     is_available = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"{self.hotel.name} - Room {self.room_number} ({self.room_type})"
+        return ( 
+            f"{self.hotel.name} - "
+            f"Room {self.room_number}  ({self.room_type})"
+         )
 
 
 class Booking(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
+        )
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     check_in = models.DateField()
     check_out = models.DateField()
@@ -48,7 +52,7 @@ class Booking(models.Model):
     def __str__(self):
         status = "Active" if self.is_active else "Cancelled"
         return f"Booking by {self.user.username} for {self.room} ({status})"
-    
+
     def total_price(self):
         days = (self.check_out - self.check_in).days
         return Decimal(days) * self.room.price_per_night

@@ -5,7 +5,6 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Hotel, Room, Booking
 from .forms import RegisterForm, BookingForm
 from django.utils.dateparse import parse_date
- 
 
 
 def register(request):
@@ -29,7 +28,9 @@ def hotel_list(request):
 def room_list(request, hotel_id):
     hotel = get_object_or_404(Hotel, pk=hotel_id)
     rooms = hotel.rooms.all()
-    return render(request, 'booking/room_list.html', {'hotel': hotel, 'rooms': rooms})
+    return render(
+        request, 'booking/room_list.html', {'hotel': hotel, 'rooms': rooms}
+    )
 
 
 @login_required
@@ -44,14 +45,17 @@ def admin_book_room(request, room_id):
         check_out_date = parse_date(check_out)
 
         if not check_in_date or not check_out_date:
-            messages.error(request, "Please provide valid check-in and check-out dates.")
+            messages.error(
+                request, "Please provide valid check-in and check-out dates."
+            )
             return redirect('room_list', hotel_id=room.hotel.id)
 
         if check_in_date >= check_out_date:
-            messages.error(request, "Check-out date must be after check-in date.")
+            messages.error(
+                request, "Check-out date must be after check-in date."
+            )
             return redirect('room_list', hotel_id=room.hotel.id)
 
-        
         overlap_exists = Booking.objects.filter(
             room=room,
             is_active=True,
@@ -60,14 +64,17 @@ def admin_book_room(request, room_id):
         ).exists()
 
         if overlap_exists:
-            messages.error(request, "Sorry, this room is already booked for the selected dates.")
+            messages.error(
+                request, (
+                    "Sorry,this room is already booked for the selected dates."
+                    )
+            )
             return redirect('room_list', hotel_id=room.hotel.id)
 
-       
         form = BookingForm(request.POST)
         if form.is_valid():
             booking = form.save(commit=False)
-            booking.user = request.user 
+            booking.user = request.user
             booking.room = room
             booking.amount = booking.total_price()
             booking.save()
@@ -75,11 +82,12 @@ def admin_book_room(request, room_id):
             room.save()
 
             return redirect('payment_process', booking_id=booking.id)
-        
     else:
         form = BookingForm()
 
-    return render(request, 'booking/booking_form.html', {'room': room, 'form': form})
+    return render(
+        request, 'booking/booking_form.html', {'room': room, 'form': form}
+        )
 
 
 @user_passes_test(lambda u: u.is_staff)

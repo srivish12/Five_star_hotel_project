@@ -5,18 +5,16 @@ from booking.models import Booking, Room
 from .models import Payment
 from .forms import PaymentForm
 import uuid
-   
+
 
 @login_required
 def payment_process(request, booking_id):
     booking = get_object_or_404(Booking, id=booking_id, user=request.user)
 
-
     payment = getattr(booking, 'payment', None)
     if payment and payment.status == 'completed':
         messages.info(request, "Payment already completed for this booking.")
         return redirect('payment_success', booking_id=booking.id)
-    
 
     if request.method == 'POST':
         form = PaymentForm(request.POST)
@@ -30,8 +28,7 @@ def payment_process(request, booking_id):
             booking.notes = payment.notes
             booking.payment_id = payment.transaction_id
 
-           
-            if payment.method in ['card','paypal', 'mobile']:
+            if payment.method in ['card', 'paypal', 'mobile']:
                 payment.status = 'completed'
                 booking.payment_status = 'Completed'
 
@@ -43,7 +40,9 @@ def payment_process(request, booking_id):
 
             payment.save()
             booking.save()
-            messages.success(request, "Room is reserved for the selected dates.")
+            messages.success(
+                request, "Room is reserved for the selected dates."
+                )
             return redirect('payment_success', booking_id=booking.id)
     else:
         form = PaymentForm(initial={'amount': booking.amount})
@@ -58,13 +57,15 @@ def payment_process(request, booking_id):
 @login_required
 def payment_success(request, booking_id):
     booking = get_object_or_404(Booking, id=booking_id, user=request.user)
-    return render(request, 'payments/payment_success.html', {'booking': booking})
+    return render(
+        request, 'payments/payment_success.html', {'booking': booking}
+        )
 
 
 @login_required
 def payment_cancel(request, booking_id):
     booking = get_object_or_404(Booking, id=booking_id, user=request.user)
     messages.warning(request, "Payment was cancelled.")
-    return render(request, 'payments/payment_cancel.html', {'booking': booking})
-
-
+    return render(
+        request, 'payments/payment_cancel.html', {'booking': booking}
+    )
