@@ -1,13 +1,18 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head><title>Five Star Hotels</title>
-<style></style>
-
-<link rel="stylesheet" href="{% static 'css/style.css' %}?v={{ STATIC_VERSION }}">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+
+ {% block extra_css %}{% endblock %}
+
 </head>
+
 <body>
  
   <h1 id="heading">Five Star Hotels</h1>
@@ -38,8 +43,9 @@
 
   <footer>
     <hr>
-    <p>&copy; 2025 Five Star Hotel Booking</p>
+    <p class="text-center">&copy; 2025 Five Star Hotel Booking</p>
   </footer>
+
 </body>
 </html>
 

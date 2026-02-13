@@ -30,9 +30,9 @@ def payment_process(request, booking_id):
 
             if payment.method in ['card', 'paypal', 'mobile']:
                 payment.status = 'completed'
-                booking.payment_status = 'Completed'
+                booking.payment_status = 'completed'
 
-            elif payment.method in ['cash', 'or other']:
+            elif payment.method in ['cash', 'other']:
                 payment.status = 'pending'
                 booking.payment_status = 'pending'
             else:

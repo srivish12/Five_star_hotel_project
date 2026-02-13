@@ -1,16 +1,47 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'booking/css/booking.css' %}">
+    
+{% endblock %}
+
+
 {% block content %}
 
-  <h2>Available Hotels</h2>
-  
-    <ul>
-      {% for hotel in hotels %}
-        <li><a href="{% url 'room_list' hotel.id %}">{{ hotel.name }}-{{ hotel.location }}</a></li>
-      {% empty %}
-        <li>No hotels available.-log into admin to add one.</li>
-      
-      {% endfor %}
-    </ul>
-  
+<div class="container mt-5">
+    <h1 class="text-center  mb-4">Available Hotels</h1>
+
+    <div class="row">
+        {% for hotel in hotels %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h2 class="card-title text-warning">
+                            {{ hotel.name }}
+                        </h2>
+                        <h4 class="card-subtitle mb-2 text-muted">
+                            {{ hotel.location }}
+                        </h4>
+                        <p class="card-text">
+                            {{ hotel.description }}
+                        </p>
+                        <a href="{% url 'room_list' hotel.id %}" class="btn btn-primary">
+                            View Rooms
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="alert alert-warning text-center">
+                    No hotels available. Log into admin to add one.
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
 {% endblock %}

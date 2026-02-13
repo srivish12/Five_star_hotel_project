@@ -1,20 +1,77 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'reservations/css/reservation.css' %}">
+
+{% endblock %}
+
 {% block content %}
-<h2>My Bookings</h2>
-<ul>
-  {% for booking in bookings %}
-    <li>
-      {{ booking.room }} — {{ booking.check_in }} to {{ booking.check_out }}
-      ({{ booking.payment_status }})
-      {% if booking.is_active %}
-        <a href="{% url 'amend_booking' booking.id %}">Amend</a> |
-        <a href="{% url 'cancel_booking' booking.id %}">Cancel</a>
-      {% else %}
-        <em>Cancelled</em>
-      {% endif %}
-    </li>
-  {% empty %}
-    <li>You have no bookings.</li>
-  {% endfor %}
-</ul>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">My Bookings</h2>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+
+            {% for booking in bookings %}
+                <div class="card shadow-sm mb-4 border-0">
+                    <div class="card-body">
+
+                        <div class="row align-items-center">
+                            
+                            <!-- Booking Details -->
+                            <div class="col-md-8">
+                                <h5 class="card-title mb-1">
+                                    {{ booking.room }}
+                                </h5>
+
+                                <p class="mb-1 text-muted">
+                                    {{ booking.check_in }} → {{ booking.check_out }}
+                                </p>
+
+                                {% if booking.payment_status == "Paid" %}
+                                    <span class="badge bg-success">
+                                        {{ booking.payment_status }}
+                                    </span>
+                                {% else %}
+                                    <span class="badge bg-warning text-dark">
+                                        {{ booking.payment_status }}
+                                    </span>
+                                {% endif %}
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                                {% if booking.is_active %}
+                                    <a href="{% url 'amend_booking' booking.id %}"
+                                       class="btn btn-outline-primary btn-sm me-2">
+                                        Amend
+                                    </a>
+
+                                    <a href="{% url 'cancel_booking' booking.id %}"
+                                       class="btn btn-outline-danger btn-sm">
+                                        Cancel
+                                    </a>
+                                {% else %}
+                                    <span class="text-danger fw-semibold">
+                                        Cancelled
+                                    </span>
+                                {% endif %}
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            {% empty %}
+                <div class="alert alert-info text-center">
+                    You have no bookings.
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
 {% endblock %}

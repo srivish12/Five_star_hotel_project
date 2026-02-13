@@ -14,9 +14,15 @@ def cancel_booking(request, booking_id):
 
     if request.method == 'POST':
         booking.is_active = False
-        booking.room.is_available = True
-        booking.room.save()
         booking.save()
+
+        if not Booking.objects.filter(
+            room=booking.room,
+            is_active=True
+        ).exists():
+            booking.room.is_available = True
+            booking.room.save()
+        
         messages.success(request, 'Booking cancelled successfully.')
         return redirect('my_bookings')
 
@@ -71,7 +77,7 @@ def amend_booking(request, booking_id):
 @login_required
 def my_bookings(request):
     bookings = (
-        Booking.objects.filter(user=request.user)
+        Booking.objects.filter(user=request.user, is_active=True)
         .select_related('room').order_by('-check_in')
         )
     return render(

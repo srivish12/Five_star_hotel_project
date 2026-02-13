@@ -1,6 +1,16 @@
 {% extends "base.html" %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'payments/css/payment.css' %}">
+    
+{% endblock %}
+
 {% block content %}
 <h2>Payment Successful </h2>
-<p>Your payment for booking #{{ booking.id }} has been completed successfully.</p>
+{% if booking.payment.method == 'cash' or booking.payment.method == 'other' %}
+<p>Booking for the room No-#{{ booking.room.room_number }} has been confirmed. Please remember to pay at the hotel.</p>
+{% else %}
+<p>Your payment for booking Id #{{ booking.id }} has been completed successfully.</p>
+{% endif %}
 <a href="{% url 'my_bookings' %}" class="btn btn-primary">View My Bookings</a>
 {% endblock %}

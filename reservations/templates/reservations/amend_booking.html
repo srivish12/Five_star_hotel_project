@@ -1,4 +1,10 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'reservations/css/reservation.css' %}">
+
+{% endblock %}
 {% block content %}
 <h2>Amend Booking</h2>
 <form method="POST">

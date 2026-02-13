@@ -1,8 +1,14 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'booking/css/booking.css' %}">
+    
+{% endblock %}
 
 {% block content %}
 
-<h2>Rooms in {{ hotel.name }}</h2>
+<h1>Rooms in {{ hotel.name }}</h1>
 <ul>
   {% for room in rooms %}
     <li>

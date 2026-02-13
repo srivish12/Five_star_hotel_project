@@ -1,36 +1,14 @@
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
-    background-color: hwb(0 51% 48%);
+    background-color:wheat;
   
   }
   h1, h2 {
     color: #333;
-
-  }
-  
-  #heading {
-    text-align: center;
-    font-size: 50px;
-    color:#d95c1b;
-    font-family:imogi;
-    background-color: rgb(215, 235, 115);
-
   }
 
-  #subHeading {
-    text-align: center;
-    color:black;
-    font-family:imogi;
-    background-color: rgb(215, 235, 115);
-
-  }
-  #logArea {
-    text-align: left;
-    margin-bottom: 0;
-    background-color: antiquewhite;
-  }
-  hr {
+   hr {
     border: 0;
     height: 1px;
     background: #333;

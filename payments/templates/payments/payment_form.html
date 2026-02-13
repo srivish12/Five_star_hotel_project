@@ -1,23 +1,79 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'payments/css/payment.css' %}">
+
+{% endblock %}
 
 {% block content %}
 
-<h2>Payment for Booking - Room No- {{ room.room_number }} , Booking Id - #{{ booking.id }}</h2>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
 
-<form method='post'>
-    {% csrf_token %}
-    <div class='mb-3'>
-        {{ form.method.label_tag }} {{ form.method }}
-        <p> payment_type can be either 'Credit / Debit Card','cash','PayPal','or other' .</p>
+                <div class="card shadow-lg border-0">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h4 class="mb-0">
+                            Payment for Room {{ room.room_number }}
+                        </h4>
+                        <small>Booking ID: #{{ booking.id }}</small>
+                    </div>
+
+                    <div class="card-body p-4">
+
+                        <form method="post">
+                            {% csrf_token %}
+
+                            <!-- Payment Method -->
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">
+                                    {{ form.method.label }}
+                                </label>
+                                {{ form.method }}
+                                <div class="form-text">
+                                    Payment type can be:
+                                    <strong>Credit/Debit Card</strong>,
+                                    <strong>Cash</strong>,
+                                    <strong>PayPal</strong>, or
+                                    <strong>Other</strong>.
+                                </div>
+                            </div>
+
+                            <!-- Amount -->
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">
+                                    {{ form.amount.label }}
+                                </label>
+                                {{ form.amount }}
+                            </div>
+
+                            <!-- Notes -->
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">
+                                    {{ form.notes.label }}
+                                </label>
+                                {{ form.notes }}
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="d-flex justify-content-between">
+                                <button type="submit" name="action" value="pay_later" class="btn btn-outline-warning px-4">
+                                    Pay Later
+                                </button>
+
+                                <button type="submit" name="action" value="pay_now" class="btn btn-success px-4">
+                                    Pay Now
+                                </button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
-    <div class='mb-3'>
-        {{ form.amount.label_tag }} {{ form.amount }}
-    </div>
-    <div class='mb-3'>
-        {{ form.notes.label_tag }} {{ form.notes }}
-    </div>
-    <button type='submit' class='btn btn-success'>Pay Now</button>
-    <button type='submit' class='btn btn-success'>Pay Later</button>
-</form>
 
 {% endblock %}

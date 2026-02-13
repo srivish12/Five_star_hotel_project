@@ -1,4 +1,11 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'reservations/css/reservation.css' %}">
+
+{% endblock %}
+
 {% block content %}
 <h2>Cancel Booking</h2>
 <p>Are you sure you want to cancel your booking for {{ booking.room }}?</p>
