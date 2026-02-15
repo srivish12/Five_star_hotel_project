@@ -22,7 +22,7 @@ def cancel_booking(request, booking_id):
         ).exists():
             booking.room.is_available = True
             booking.room.save()
-        
+
         messages.success(request, 'Booking cancelled successfully.')
         return redirect('my_bookings')
 

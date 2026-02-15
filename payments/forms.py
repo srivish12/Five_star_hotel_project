@@ -8,6 +8,8 @@ class PaymentForm(forms.ModelForm):
         fields = ['method', 'amount', 'notes']
         widgets = {
             'method': forms.Select(attrs={'class': 'form-select'}),
-            'amount': forms.NumberInput(attrs={'class': 'form-control', 'readonly': 'readonly'}),
-            'notes': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'amount': forms.NumberInput(
+                attrs={'class': 'form-control', 'readonly': 'readonly'}),
+            'notes': forms.Textarea(
+                attrs={'class': 'form-control', 'rows': 3}),
         }

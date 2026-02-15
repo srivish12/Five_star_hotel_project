@@ -28,7 +28,7 @@ class Room(models.Model):
     is_available = models.BooleanField(default=True)
 
     def __str__(self):
-        return ( 
+        return (
             f"{self.hotel.name} - "
             f"Room {self.room_number}  ({self.room_type})"
          )

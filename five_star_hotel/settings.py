@@ -34,7 +34,7 @@ LOGIN_REDIRECT_URL = '/reservations/my-bookings/'
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1', 'localhost']
 
 
@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles', 
+    'django.contrib.staticfiles',
     'cloudinary_storage',
     'cloudinary',
     'booking',
@@ -88,7 +88,6 @@ WSGI_APPLICATION = 'five_star_hotel.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
 
 
 if 'DATABASE_URL' in os.environ:
@@ -143,11 +142,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-#STATICFILES_DIRS = [
- #   BASE_DIR / "static",
-#]
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 

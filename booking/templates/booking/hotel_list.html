@@ -2,12 +2,10 @@
 
 {% load static %}
 
-
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'booking/css/booking.css' %}">
-    
-{% endblock %}
+<link rel="stylesheet" href="{% static 'booking/css/booking.css' %}">
 
+{% endblock %}
 
 {% block content %}
 
@@ -16,30 +14,30 @@
 
     <div class="row">
         {% for hotel in hotels %}
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <h2 class="card-title text-warning">
-                            {{ hotel.name }}
-                        </h2>
-                        <h4 class="card-subtitle mb-2 text-muted">
-                            {{ hotel.location }}
-                        </h4>
-                        <p class="card-text">
-                            {{ hotel.description }}
-                        </p>
-                        <a href="{% url 'room_list' hotel.id %}" class="btn btn-primary">
-                            View Rooms
-                        </a>
-                    </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-warning">
+                        {{ hotel.name }}
+                    </h2>
+                    <h4 class="card-subtitle mb-2 text-muted">
+                        {{ hotel.location }}
+                    </h4>
+                    <p class="card-text">
+                        {{ hotel.description }}
+                    </p>
+                    <a href="{% url 'room_list' hotel.id %}" class="btn btn-primary">
+                        View Rooms
+                    </a>
                 </div>
             </div>
+        </div>
         {% empty %}
-            <div class="col-12">
-                <div class="alert alert-warning text-center">
-                    No hotels available. Log into admin to add one.
-                </div>
+        <div class="col-12">
+            <div class="alert alert-warning text-center">
+                No hotels available. Log into admin to add one.
             </div>
+        </div>
         {% endfor %}
     </div>
 </div>

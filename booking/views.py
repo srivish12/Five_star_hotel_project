@@ -99,4 +99,3 @@ def admin_cancel_booking(request, booking_id):
     messages.success(request, "Booking has been cancelled by admin.")
 
     return redirect('room_list', hotel_id=booking.room.hotel.id)
-
